@@ -1,4 +1,4 @@
-use std::{fs, path::Path};
+use std::{fs, path::{Path, PathBuf}, str::FromStr};
 
 use apriltag::{image_buf::DEFAULT_ALIGNMENT_U8, Detector, Family, Image};
 use apriltag_video_tracker::{calibration::Calibration, pose::MarkerPose};
@@ -9,13 +9,15 @@ use ffmpeg_next::{format::Pixel, frame::Video, software::scaling::{Context, Flag
 #[command(version, about, long_about = None)]
 struct Args {
     #[arg(short, long, help="Video file to extract poses from")]
-    video: String,
+    video: PathBuf,
     #[arg(short, long, help="File with calibration parameters stored in TOML format")]
-    camera_calibration_file: String,
+    camera_calibration_file: PathBuf,
     #[arg(short, long, help="File to write output JSON to")]
-    out: String,
-    #[arg(short, long, default_value="0.011", help="Internal tag marker length in metres")]
-    tag_size: f64
+    out: PathBuf,
+    #[arg(short='s', long, default_value="0.011", help="Internal tag marker length in metres")]
+    tag_size: f64,
+    #[arg(short='t', long, default_value="tagStandard41h12", help="AprilTag family name")]
+    tag_family: String
 }
 
 #[derive(serde::Serialize)]
@@ -62,7 +64,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>  {
     let height = decoder.height() as usize;
 
     // Setup apriltag detector.
-    let family = Family::tag_standard_41h12();
+    let family = Family::from_str(&args.tag_family).unwrap();
     let mut detector = Detector::builder().add_family_bits(family, 1).build().unwrap();
 
     let mut marker_poses = Vec::new();
@@ -126,7 +128,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>  {
     let json_out = serde_json::to_string(&marker_poses).unwrap();
     let _ = fs::write(Path::new(&args.out), json_out);
 
-    println!("Done writing output JSON to {}", args.out);
+    println!("Done writing output JSON to {}", args.out.to_str().unwrap());
 
     Ok(())
 }
