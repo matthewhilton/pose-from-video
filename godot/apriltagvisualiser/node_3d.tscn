@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkvhjn4pc1c2m"]
+
+[ext_resource type="Script" path="res://coordinate_frame_manager.gd" id="1_2xflc"]
+[ext_resource type="Script" path="res://pose_supplier.gd" id="1_6pll6"]
+[ext_resource type="PackedScene" uid="uid://c2nxo6ysipoia" path="res://coordinate_frame.tscn" id="1_pstev"]
+[ext_resource type="Script" path="res://restart.gd" id="4_j8x74"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Coordinate frame Manager" type="Node3D" parent="." node_paths=PackedStringArray("supplier")]
+script = ExtResource("1_2xflc")
+supplier = NodePath("../PoseSupplier")
+frame_scene = ExtResource("1_pstev")
+frame_scale = 0.01
+
+[node name="PoseSupplier" type="Node" parent="."]
+script = ExtResource("1_6pll6")
+pose_file = "res://poses-rot-3.json"
+
+[node name="Restart" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Reset"
+script = ExtResource("4_j8x74")
+
+[node name="CoordinateFrame" parent="." instance=ExtResource("1_pstev")]
+transform = Transform3D(0.135, 0, 0, 0, 0.135, 0, 0, 0, 0.135, 0, 0, 0)

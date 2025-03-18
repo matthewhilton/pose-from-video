@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2nxo6ysipoia"]
+
+[ext_resource type="Script" path="res://coordinate_frame.gd" id="1_8c1er"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhbbk"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w06sa"]
+material = SubResource("StandardMaterial3D_rhbbk")
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj31k"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6uf8r"]
+material = SubResource("StandardMaterial3D_xj31k")
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5g7u0"]
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5amub"]
+material = SubResource("StandardMaterial3D_5g7u0")
+size = Vector3(0.1, 1, 0.1)
+
+[node name="CoordinateFrame" type="Node3D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_8c1er")
+label = NodePath("Label3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("BoxMesh_w06sa")
+skeleton = NodePath("../../root/@EditorNode@17792/@Panel@13/@VBoxContainer@14/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@25/DockVSplitCenter/@VSplitContainer@52/@VBoxContainer@53/@EditorMainScreen@98/MainScreen/@CanvasItemEditor@9907/@VSplitContainer@9729/@HSplitContainer@9731/@HSplitContainer@9733/@Control@9734/@SubViewportContainer@9735/@SubViewport@9736/Node")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_6uf8r")
+skeleton = NodePath("../../root/@EditorNode@17792/@Panel@13/@VBoxContainer@14/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@25/DockVSplitCenter/@VSplitContainer@52/@VBoxContainer@53/@EditorMainScreen@98/MainScreen/@CanvasItemEditor@9907/@VSplitContainer@9729/@HSplitContainer@9731/@HSplitContainer@9733/@Control@9734/@SubViewportContainer@9735/@SubViewport@9736/Node")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 0, 0, 0.5)
+mesh = SubResource("BoxMesh_5amub")
+skeleton = NodePath("../../root/@EditorNode@17792/@Panel@13/@VBoxContainer@14/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@25/DockVSplitCenter/@VSplitContainer@52/@VBoxContainer@53/@EditorMainScreen@98/MainScreen/@CanvasItemEditor@9907/@VSplitContainer@9729/@HSplitContainer@9731/@HSplitContainer@9733/@Control@9734/@SubViewportContainer@9735/@SubViewport@9736/Node")
+
+[node name="Label3D" type="Label3D" parent="."]
+billboard = 1
+no_depth_test = true
+text = "1"
